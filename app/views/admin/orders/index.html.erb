@@ -1,0 +1,21 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Orders</h1>
+    <% @orders.each do |order| %>
+        <%= order.customer_name %>
+        <%= order.created_at %>
+        <% order.services.each |service| %>
+          <p>Услуга:</p>
+          <b><%= service.category.name %></b>
+          <%= service.name %>
+        <% end %>
+        <%= order.status %>
+        <%= link_to 'Show', order %>
+        <%= link_to 'Edit', edit_order_path(order) %>
+        <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    <% end %>
+
+<br>
+
+<%= link_to 'New Order', new_order_path %>

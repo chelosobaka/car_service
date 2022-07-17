@@ -4,18 +4,26 @@
     <% @orders.each do |order| %>
         <%= order.customer_name %>
         <%= order.created_at %>
-        <% order.services.each |service| %>
-          <p>Услуга:</p>
-          <b><%= service.category.name %></b>
-          <%= service.name %>
-        <% end %>
-        <%= order.status %>
-        <%= link_to 'Show', order %>
-        <%= link_to 'Edit', edit_order_path(order) %>
-        <%= link_to 'Destroy', order, method: :delete, data: { confirm: 'Are you sure?' } %>
 
+        <% order.order_services.each do |order_service| %>
+          <p>Service:</p>
+          <b><%= order_service.service.category.name %></b>
+          <%= order_service.service.name %>
+          <%= link_to 'Show', order_service.service %></td>
+          <%= link_to 'Destroy', admin_order_service_path(order_service), method: :delete, data: { confirm: 'Are you sure?' } %>
+          <p>Executor:</p>
+          <%= order_service.employee %>
+        <% end %>
+        <p>Total price:</p>
+        <%= order.total_price %>
+        <p>Status</p>
+        <%= order.status %>
+        <%= link_to 'Show', admin_order %>
+        <%= link_to 'Edit', edit_admin_order_path(order) %>
+        <%= link_to 'Delete', admin_order, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <hr>
     <% end %>
 
 <br>
 
-<%= link_to 'New Order', new_order_path %>
+<%= link_to 'New order', new_admin_order_path %>

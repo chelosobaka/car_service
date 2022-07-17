@@ -1,8 +1,15 @@
 <p id="notice"><%= notice %></p>
 
+<h1>Service</h1>
+
 <p>
   <strong>Name:</strong>
   <%= @service.name %>
+</p>
+
+<p>
+  <strong>Category:</strong>
+  <%= @service.category.name %> <%= link_to 'Show', admin_category_path(@service.category) %>
 </p>
 
 <p>
@@ -10,10 +17,6 @@
   <%= @service.price %>
 </p>
 
-<p>
-  <strong>Order:</strong>
-  <%= @service.order_id %>
-</p>
 
-<%= link_to 'Edit', edit_service_path(@service) %> |
-<%= link_to 'Back', services_path %>
+
+<%= link_to 'Edit', edit_admin_service_path(@service) %>

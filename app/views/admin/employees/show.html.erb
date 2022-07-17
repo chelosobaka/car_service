@@ -1,9 +1,17 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @employee.name %>
-</p>
+<h1>Employee</h1>
 
-<%= link_to 'Edit', edit_employee_path(@employee) %> |
-<%= link_to 'Back', employees_path %>
+<strong>Name:</strong>
+<%= @employee.name %>
+<p>Now providing services:</p>
+<% @employee.order_services.each do |order_service| %>
+  <p>Order:<p>
+  <%= order_service.order.id %>
+  <p>Service:</p>
+  <%= order_service.service.name %>
+<% end %>
+
+
+
+<%= link_to 'Edit', edit_admin_employee_path(@employee) %>

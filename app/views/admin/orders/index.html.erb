@@ -1,29 +1,51 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Orders</h1>
-    <% @orders.each do |order| %>
+<hr>
+  <% @orders.each do |order| %>
+    <div class="order-body">
+      <div class="label">Customer:</div>
+      <div class="data">
         <%= order.customer_name %>
+      </div>
+      <div class="label">Date/Time:</div>
+      <div class="data">
         <%= order.created_at %>
+      </div>
+      <% order.order_services.each do |order_service| %>
+        <div class="order-service">
 
-        <% order.order_services.each do |order_service| %>
-          <p>Service:</p>
-          <b><%= order_service.service.category.name %></b>
-          <%= order_service.service.name %>
-          <%= link_to 'Show', order_service.service %></td>
-          <%= link_to 'Destroy', admin_order_service_path(order_service), method: :delete, data: { confirm: 'Are you sure?' } %>
-          <p>Executor:</p>
-          <%= order_service.employee %>
-        <% end %>
-        <p>Total price:</p>
-        <%= order.total_price %>
-        <p>Status</p>
-        <%= order.status %>
-        <%= link_to 'Show', admin_order %>
+          <div class="label">Service:</div>
+          <div class="data">
+            <b><%= order_service.service.category.name %></b>
+            <br>
+            <%= order_service.service.name %>
+            <div class="label-price">Price:</div>
+            <div class="data">
+              <%= order_service.service.price %>
+            </div>
+          </div>
+          <div class="label">Executor:</div>
+          <div class="data">
+            <%= order_service.employee.name %>
+          </div>
+        </div>
+      <% end %>
+      <br>
+      <div class="options">
+        <%= link_to 'Show', admin_order_path(order) %>
         <%= link_to 'Edit', edit_admin_order_path(order) %>
-        <%= link_to 'Delete', admin_order, method: :delete, data: { confirm: 'Are you sure?' } %>
-        <hr>
-    <% end %>
+        <%= link_to 'Delete', admin_order_path(order), method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </div>
+    <div class="label">Total price:</div>
+    <div class="data">
+      <%= order.total_price %>
+    </div>
+    <hr>
+  <% end %>
 
 <br>
-
-<%= link_to 'New order', new_admin_order_path %>
+<div class="options">
+  <%= link_to 'New order', new_admin_order_path %>
+</div>

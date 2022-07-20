@@ -1,0 +1,24 @@
+<%= form_with(model:[:admin, order_service]) do |form| %>
+  <% if order_service.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(order_service.errors.count, "error") %> prohibited this order_service from being saved:</h2>
+      <ul>
+        <% order_service.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= form.hidden_field(:order_id, value: order_service.order_id) %>
+  <div class="field">
+    <%= form.label :service %>
+    <%= form.collection_select :service_id, Service.all, :id, :name %>
+  </div>
+  <div class="field">
+    <%= form.label :employee %>
+    <%= form.collection_select :employee_id, Employee.all, :id, :name %>
+  </div>
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

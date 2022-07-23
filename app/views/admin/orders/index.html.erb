@@ -1,4 +1,36 @@
 <p id="notice"><%= notice %></p>
+<h1>Orders filter</h1>
+
+<div class="filter">
+  <%= form_with url: admin_orders_path, method: :get do |form| %>
+    <div class="field">
+      <%= form.label :customer_name %>
+      <%= form.text_field :customer_name %>
+    </div>
+
+    <div class="field">
+      <%= form.label :created_at %>
+      <%= date_field :service, :created_at %>
+    </div>
+
+    <div class="field">
+      <%= form.label :employee %>
+      <%= form.collection_select :employee_id, Employee.all, :id, :name, prompt: "empty" %>
+    </div>
+
+    <div class="field">
+      <%= form.label :category %>
+      <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "empty" %>
+    </div>
+
+    <div class="actions">
+      <%= form.submit "Filtered" %>
+    </div>
+  <% end %>
+</div>
+
+
+
 
 <h1>Orders</h1>
 <hr>
@@ -8,9 +40,9 @@
       <div class="data">
         <%= order.customer_name %>
       </div>
-      <div class="label">Date/Time:</div>
+      <div class="label">Date:</div>
       <div class="data">
-        <%= order.created_at %>
+        <%= order.created_at.strftime("%d-%m-%Y") %>
       </div>
       <% order.order_services.each do |order_service| %>
         <div class="order-service">

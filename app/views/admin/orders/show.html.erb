@@ -5,9 +5,9 @@
   <div class="data">
     <%= @order.customer_name %>
   </div>
-  <div class="label">Date/Time:</div>
+  <div class="label">Date:</div>
   <div class="data">
-    <%= @order.created_at %>
+    <%= @order.created_at.strftime("%d-%m-%Y") %>
   </div>
   <% @order.order_services.each do |order_service| %>
     <div class="order-service">

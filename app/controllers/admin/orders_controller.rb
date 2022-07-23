@@ -2,7 +2,25 @@ class Admin::OrdersController < Admin::AdminController
   before_action :set_order, only: %i[ show edit update destroy ]
 
   def index
-    @orders = Order.all
+    #if params[:customer_name] || params[:created_at] || params[:employee] ||
+    created_at = nil
+    if params[:service]
+      created_at = params[:service][:created_at]
+    end
+
+ p @orders = Order.joins(:services).where(services: {employee_id: "35"}).distinct
+      #@orders = Order.where(nil)
+      #@orders = @orders.filter_by_customer_name(params[:customer_name]) if params[:customer_name].present?
+
+      #@orders = @orders.filter_by_created_at(created_at) if params[:service][:created_at].present?
+
+      #@orders = @orders.filter_by_service_employee(params[:employee_id]) if params[:employee_id].present?
+
+      #@orders = @orders.filter_by_service_category(params[:category_id]) if params[:category_id].present?
+
+    #else
+      #@orders = Order.all
+    #end
   end
 
   def show
@@ -49,6 +67,6 @@ class Admin::OrdersController < Admin::AdminController
     end
 
     def order_params
-      params.require(:order).permit(:customer_name)
+      params.require(:order).permit(:customer_name, :category)
     end
 end

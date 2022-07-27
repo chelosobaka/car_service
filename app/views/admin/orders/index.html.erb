@@ -1,8 +1,9 @@
 <p id="notice"><%= notice %></p>
-<h1>Orders filter</h1>
+
 
 <div class="filter">
   <%= form_with url: admin_orders_path, method: :get do |form| %>
+  <h3>Orders filter</h3>
     <div class="field">
       <%= form.label :customer_name %>
       <%= form.text_field :customer_name %>
@@ -21,6 +22,17 @@
     <div class="field">
       <%= form.label :category %>
       <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "empty" %>
+    </div>
+
+    <h3>Orders sort</h3>
+    <div class="field">
+      <%= form.label :sort_by %>
+      <%= form.select :sort_by, options_for_select(["Date", "Customer", "Count services"]) %>
+    </div>
+
+    <div class="field">
+      <%= form.label :type %>
+      <%= form.select :type, options_for_select(["DESC", "ASC"]) %>
     </div>
 
     <div class="actions">

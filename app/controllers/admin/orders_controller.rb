@@ -2,7 +2,8 @@ class Admin::OrdersController < Admin::AdminController
   before_action :set_order, only: %i[ show edit update destroy ]
 
   def index
-    if params[:customer_name] || params[:created_at] || params[:employee] || params[:service]
+    if params[:commit] == "Filtered"
+      #params[:customer_name] || params[:created_at] || params[:employee] || params[:service] || params[:sort_by] || params[:type]
       @orders = Order.where(nil)
       @orders = @orders.filter_by_customer_name(params[:customer_name]) if params[:customer_name].present?
 
@@ -11,6 +12,12 @@ class Admin::OrdersController < Admin::AdminController
       #@orders = @orders.filter_by_service_employee(params[:employee_id]) if params[:employee_id].present?
 
       @orders = @orders.filter_by_service_category(params[:category_id]) if params[:category_id].present?
+
+      @orders = @orders.order("created_at #{params[:type]}" ) if params[:sort_by] == "Date"
+
+      @orders = @orders.order("customer_name #{params[:type]}" ) if params[:sort_by] == "Customer"
+
+      @orders = @orders.left_joins(:services).group(:id).order("COUNT(services.id) #{params[:type]}" ) if params[:sort_by] == "Count services"
     else
       @orders = Order.all
     end

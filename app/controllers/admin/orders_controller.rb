@@ -3,6 +3,7 @@ class Admin::OrdersController < Admin::AdminController
 
   def index
     if params[:commit] == "Filtered"
+      @type_of_index_page = "Filtered"
       #params[:customer_name] || params[:created_at] || params[:employee] || params[:service] || params[:sort_by] || params[:type]
       @orders = Order.where(nil)
       @orders = @orders.filter_by_customer_name(params[:customer_name]) if params[:customer_name].present?
@@ -18,6 +19,12 @@ class Admin::OrdersController < Admin::AdminController
       @orders = @orders.order("customer_name #{params[:type]}" ) if params[:sort_by] == "Customer"
 
       @orders = @orders.left_joins(:services).group(:id).order("COUNT(services.id) #{params[:type]}" ) if params[:sort_by] == "Count services"
+
+
+        respond_to do |format|
+          format.html
+          format.xlsx
+        end
     else
       @orders = Order.all
     end

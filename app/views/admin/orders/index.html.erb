@@ -42,8 +42,9 @@
 </div>
 
 
-
-
+<% if @type_of_index_page == "Filtered" %>
+  <%= link_to 'Download as .xlsx', admin_orders_path(format: :xlsx) %>
+<% end %>
 <h1>Orders</h1>
 <hr>
   <% @orders.each do |order| %>

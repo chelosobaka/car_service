@@ -10,7 +10,7 @@ class Admin::OrdersController < Admin::AdminController
 
       @orders = @orders.filter_by_created_at(params[:created_at]) if params[:created_at].present?
 
-      #@orders = @orders.filter_by_service_employee(params[:employee_id]) if params[:employee_id].present?
+      @orders = @orders.filter_by_service_employee(params[:employee_id]) if params[:employee_id].present?
 
       @orders = @orders.filter_by_service_category(params[:category_id]) if params[:category_id].present?
 
